@@ -7,6 +7,8 @@ public class ManagerScene2 : MonoBehaviour
 {
 
     public Text finalText;
+
+
     // Start is called before the first frame update
     void Start()
     {

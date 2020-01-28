@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private float xValue;
     private float yValue;
+    private GameObject[] fireObjects;
     bool movementDone = true;
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 
         if (movementDone)
         {
+            fireObjects = GameObject.FindGameObjectsWithTag("Fire");
             diceValue = Random.Range(1, 6);
             Debug.Log(diceValue);
             dieValueText.text = diceValue.ToString();
@@ -40,9 +42,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (movementDone)
+        {
+            diceValue = Random.Range(1, 6);
+            dieValueText.text = diceValue.ToString();
+            movementDone = false;
+        }
 
-
-            if ((Input.GetAxisRaw("Horizontal") != 0.0f || Input.GetAxisRaw("Vertical") != 0.0f ) && !movementDone)
+        if ((Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) && !movementDone)
             {
 
                 for (int i = 0; i < diceValue; i++)
@@ -55,12 +62,19 @@ public class GameManager : MonoBehaviour
                     tilemap.SetTile(
                         new Vector3Int(Mathf.FloorToInt(playerTransform.position.x +1* Input.GetAxisRaw("Horizontal") * 0.8f ),Mathf.FloorToInt(playerTransform.position.y + 1*Input.GetAxisRaw("Vertical") * 0.8f),0),
                     null);
+
                 playerTransform.position = new Vector3(playerTransform.position.x + 1 * Input.GetAxisRaw("Horizontal"), playerTransform.position.y + 1 * Input.GetAxisRaw("Vertical"), 0);
-            }
+                
+                //foreach(GameObject g in fireObjects)
+                //{
+                //    Physics2D.OverlapArea()
+                //    if (g.transform.position.x )
+                //}
+                }
             
             //playerTransform.position = new Vector3(playerTransform.position.x + diceValue*Input.GetAxisRaw("Horizontal") * Time.deltaTime, playerTransform.position.y + diceValue*Input.GetAxisRaw("Vertical") * Time.deltaTime, 0);
             movementDone = true;
-            resetDice();
+           // resetDice();
         }
     }
 
