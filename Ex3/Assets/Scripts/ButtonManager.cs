@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
-    public int score;
     public void closedialogue()
     {
         GameObject gameObject = GameObject.FindGameObjectWithTag("Finish");
@@ -16,7 +15,7 @@ public class ButtonManager : MonoBehaviour
     {
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        score = Mathf.FloorToInt( (float)(playerTransform.position.y + 6.5) * 100); 
+        ApplicationMode.score = Mathf.FloorToInt( (float)(playerTransform.position.y + 6.5) * 100); 
         SceneManager.LoadScene(1);
     }
 }
